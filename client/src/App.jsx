@@ -4,6 +4,9 @@ import Login from "./pages/Login";
 import TransactionsPage from "./pages/TransactionsPage";
 import CashFlowPage from "./pages/CashFlowPage";
 import InsightsPage from "./pages/InsightsPage";
+import PLPage from "./pages/PLPage";
+import TaxSummaryPage from "./pages/TaxSummaryPage";
+import ChatbotPage from "./pages/ChatbotPage";
 
 function App() {
   const [token, setToken] = useState(() => localStorage.getItem("token"));
@@ -56,6 +59,36 @@ function App() {
   if (view === "insights") {
     return (
       <InsightsPage
+        onLogout={handleLogout}
+        user={user}
+        onNavigate={setView}
+      />
+    );
+  }
+
+  if (view === "pl") {
+    return (
+      <PLPage
+        onLogout={handleLogout}
+        user={user}
+        onNavigate={setView}
+      />
+    );
+  }
+
+  if (view === "tax") {
+    return (
+      <TaxSummaryPage
+        onLogout={handleLogout}
+        user={user}
+        onNavigate={setView}
+      />
+    );
+  }
+
+  if (view === "chatbot") {
+    return (
+      <ChatbotPage
         onLogout={handleLogout}
         user={user}
         onNavigate={setView}

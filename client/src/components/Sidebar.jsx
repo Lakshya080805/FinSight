@@ -42,33 +42,26 @@ export default function Sidebar({ userName, onLogout, activeView, onNavigate }) 
         >
           <span className="icon">AI</span> AI Insights
         </button>
-        <button className="nav-item" onClick={() => go("dashboard")}>
-          <span className="icon">F</span> Forecasting
-        </button>
-        <button className="nav-item" onClick={() => go("dashboard")}>
-          <span className="icon">!</span> Alerts
-          <span
-            style={{
-              marginLeft: "auto",
-              background: "var(--danger)",
-              color: "#fff",
-              fontSize: 10,
-              padding: "1px 6px",
-              borderRadius: 20,
-              fontWeight: 700,
-            }}
-          >
-            3
-          </span>
+        <button
+          className={`nav-item ${activeView === "chatbot" ? "active" : ""}`}
+          onClick={() => go("chatbot")}
+        >
+          <span className="icon">CB</span> AI Chatbot
         </button>
       </div>
 
       <div className="nav-section" style={{ marginTop: 12 }}>
         <div className="nav-label">Reports</div>
-        <button className="nav-item" onClick={() => go("dashboard")}>
+        <button
+          className={`nav-item ${activeView === "pl" ? "active" : ""}`}
+          onClick={() => go("pl")}
+        >
           <span className="icon">P</span> P&L Statement
         </button>
-        <button className="nav-item" onClick={() => go("dashboard")}>
+        <button
+          className={`nav-item ${activeView === "tax" ? "active" : ""}`}
+          onClick={() => go("tax")}
+        >
           <span className="icon">TX</span> Tax Summary
         </button>
         <button className="nav-item" onClick={() => go("dashboard")}>

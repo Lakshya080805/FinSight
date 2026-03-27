@@ -6,7 +6,6 @@ import Topbar from "../components/Topbar";
 import KPIGrid from "../components/KPIGrid";
 import Transactions from "../components/Transactions";
 import Insights from "../components/Insights";
-import Chat from "../components/Chat";
 import HealthScore from "../components/HealthScore";
 import Modal from "../components/Modal";
 import CashFlowChart from "../components/CashFlowChart";
@@ -96,7 +95,6 @@ export default function Dashboard({ onLogout, user, onNavigate }) {
                 <HealthScore data={dashboardData?.health} />
                 <ExpensePie data={dashboardData?.expenseBreakdown} />
                 <CashFlowChart data={dashboardData?.cashFlowSeries} />
-                <Chat />
               </div>
             </div>
           </>

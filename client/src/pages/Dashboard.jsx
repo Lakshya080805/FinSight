@@ -13,7 +13,7 @@ import CashFlowChart from "../components/CashFlowChart";
 import ExpensePie from "../components/ExpensePie";
 import MonthlyTrends from "../components/MonthlyTrends";
 
-export default function Dashboard({ onLogout, user }) {
+export default function Dashboard({ onLogout, user, onNavigate }) {
   const [showModal, setShowModal] = useState(false);
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,13 +36,30 @@ export default function Dashboard({ onLogout, user }) {
       });
   }, [onLogout]);
 
+  const deleteTransaction = async (tx) => {
+    if (!tx?._id) return;
+    if (!window.confirm("Delete this transaction?")) return;
+    try {
+      await api.delete(`/api/transactions/${tx._id}`);
+      fetchDashboard();
+    } catch (err) {
+      console.error("Delete failed:", err);
+      alert("Failed to delete transaction.");
+    }
+  };
+
   useEffect(() => {
     fetchDashboard();
   }, [fetchDashboard]);
 
   return (
     <div className="layout">
-      <Sidebar />
+      <Sidebar
+        userName={user?.businessName || user?.name}
+        onLogout={onLogout}
+        activeView="dashboard"
+        onNavigate={onNavigate}
+      />
 
       <main className="main">
         <Topbar
@@ -66,7 +83,11 @@ export default function Dashboard({ onLogout, user }) {
 
             <div className="content-grid">
               <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-                <Transactions data={dashboardData?.transactions} />
+                <Transactions
+                  data={dashboardData?.transactions}
+                  onAdd={() => setShowModal(true)}
+                  onDelete={deleteTransaction}
+                />
                 <MonthlyTrends data={dashboardData?.monthlyTrends} />
               </div>
 

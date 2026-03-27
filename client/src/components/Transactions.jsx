@@ -1,10 +1,15 @@
-export default function Transactions({ data = [] }) {
+export default function Transactions({ data = [], onAdd, onDelete }) {
   if (!data.length) {
     return (
       <div className="card">
         <div className="card-header">
           <div className="card-title">Recent Transactions</div>
-          <span className="card-badge">Auto-Categorized ✦</span>
+          <div className="card-actions">
+            <span className="card-badge">Auto-Categorized ?</span>
+            <button className="btn btn-ghost btn-sm" onClick={onAdd}>
+              + Add
+            </button>
+          </div>
         </div>
         <div className="tx-list">
           <div className="tx-item">
@@ -12,18 +17,18 @@ export default function Transactions({ data = [] }) {
               className="tx-icon"
               style={{ background: "rgba(0,212,170,0.1)", color: "var(--accent)" }}
             >
-              ₹
+              ?
             </div>
             <div className="tx-info">
-              <div className="tx-name">Client Payment — Mehta Traders</div>
+              <div className="tx-name">Client Payment � Mehta Traders</div>
               <div className="tx-meta">
-                Mar 25, 2026 ·{" "}
+                Mar 25, 2026 �{" "}
                 <span style={{ color: "var(--accent)", fontWeight: 600 }}>
                   Income
                 </span>
               </div>
             </div>
-            <div className="tx-amount credit">+₹45,000</div>
+            <div className="tx-amount credit">+?45,000</div>
           </div>
         </div>
       </div>
@@ -34,7 +39,12 @@ export default function Transactions({ data = [] }) {
     <div className="card">
       <div className="card-header">
         <div className="card-title">Recent Transactions</div>
-        <span className="card-badge">Auto-Categorized ✦</span>
+        <div className="card-actions">
+          <span className="card-badge">Auto-Categorized ?</span>
+          <button className="btn btn-ghost btn-sm" onClick={onAdd}>
+            + Add
+          </button>
+        </div>
       </div>
 
       <div className="tx-list">
@@ -42,7 +52,7 @@ export default function Transactions({ data = [] }) {
           const isCredit = t.type === "credit" || t.type === "income";
           const amount = t.amount ?? 0;
           return (
-            <div className="tx-item" key={i}>
+            <div className="tx-item" key={t._id || i}>
               <div
                 className="tx-icon"
                 style={{
@@ -50,12 +60,12 @@ export default function Transactions({ data = [] }) {
                   color: isCredit ? "var(--accent)" : "var(--danger)",
                 }}
               >
-                {isCredit ? "₹" : "📦"}
+                {isCredit ? "?" : "??"}
               </div>
               <div className="tx-info">
                 <div className="tx-name">{t.description || "Transaction"}</div>
                 <div className="tx-meta">
-                  {t.date || "Today"} ·{" "}
+                  {t.date || "Today"} �{" "}
                   <span
                     style={{
                       color: isCredit ? "var(--accent)" : "var(--danger)",
@@ -66,8 +76,15 @@ export default function Transactions({ data = [] }) {
                 </div>
               </div>
               <div className={`tx-amount ${isCredit ? "credit" : "debit"}`}>
-                {isCredit ? "+" : "−"}₹{amount}
+                {isCredit ? "+" : "-"}?{amount}
               </div>
+              <button
+                className="tx-delete"
+                onClick={() => onDelete && onDelete(t)}
+                title="Delete transaction"
+              >
+                ?
+              </button>
             </div>
           );
         })}

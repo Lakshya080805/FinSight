@@ -1,4 +1,10 @@
-export default function Sidebar() {
+import { useState } from "react";
+
+export default function Sidebar({ userName, onLogout, activeView, onNavigate }) {
+  const go = (view) => {
+    if (onNavigate) onNavigate(view);
+  };
+
   return (
     <aside className="sidebar">
       <div className="logo">
@@ -8,27 +14,33 @@ export default function Sidebar() {
 
       <div className="nav-section">
         <div className="nav-label">Overview</div>
-        <div className="nav-item active">
-          <span className="icon">◫</span> Dashboard
-        </div>
-        <div className="nav-item">
-          <span className="icon">↕</span> Transactions
-        </div>
-        <div className="nav-item">
-          <span className="icon">◇</span> Cash Flow
-        </div>
+        <button
+          className={`nav-item ${activeView === "dashboard" ? "active" : ""}`}
+          onClick={() => go("dashboard")}
+        >
+          <span className="icon">D</span> Dashboard
+        </button>
+        <button
+          className={`nav-item ${activeView === "transactions" ? "active" : ""}`}
+          onClick={() => go("transactions")}
+        >
+          <span className="icon">T</span> Transactions
+        </button>
+        <button className="nav-item" onClick={() => go("dashboard")}>
+          <span className="icon">C</span> Cash Flow
+        </button>
       </div>
 
       <div className="nav-section" style={{ marginTop: 12 }}>
         <div className="nav-label">Intelligence</div>
-        <div className="nav-item">
-          <span className="icon">◎</span> AI Insights
-        </div>
-        <div className="nav-item">
-          <span className="icon">◯</span> Forecasting
-        </div>
-        <div className="nav-item">
-          <span className="icon">⚠</span> Alerts
+        <button className="nav-item" onClick={() => go("dashboard")}>
+          <span className="icon">AI</span> AI Insights
+        </button>
+        <button className="nav-item" onClick={() => go("dashboard")}>
+          <span className="icon">F</span> Forecasting
+        </button>
+        <button className="nav-item" onClick={() => go("dashboard")}>
+          <span className="icon">!</span> Alerts
           <span
             style={{
               marginLeft: "auto",
@@ -42,29 +54,36 @@ export default function Sidebar() {
           >
             3
           </span>
-        </div>
+        </button>
       </div>
 
       <div className="nav-section" style={{ marginTop: 12 }}>
         <div className="nav-label">Reports</div>
-        <div className="nav-item">
-          <span className="icon">▦</span> P&L Statement
-        </div>
-        <div className="nav-item">
-          <span className="icon">⊞</span> Tax Summary
-        </div>
-        <div className="nav-item">
-          <span className="icon">⚙</span> Settings
-        </div>
+        <button className="nav-item" onClick={() => go("dashboard")}>
+          <span className="icon">P</span> P&L Statement
+        </button>
+        <button className="nav-item" onClick={() => go("dashboard")}>
+          <span className="icon">TX</span> Tax Summary
+        </button>
+        <button className="nav-item" onClick={() => go("dashboard")}>
+          <span className="icon">S</span> Settings
+        </button>
       </div>
 
       <div className="sidebar-footer">
-        <div className="business-badge">
-          <div className="biz-avatar">A</div>
-          <div>
-            <div className="biz-name">Arjun's Store</div>
-            <div className="biz-plan">Pro Plan ✦</div>
+        <div className="profile-card">
+          <div className="business-badge">
+            <div className="biz-avatar">
+              {(userName || "A").slice(0, 1).toUpperCase()}
+            </div>
+            <div>
+              <div className="biz-name">{userName || "Arjun's Store"}</div>
+              <div className="biz-plan">Pro Plan *</div>
+            </div>
           </div>
+          <button className="btn btn-ghost logout-btn" onClick={onLogout}>
+            Log out
+          </button>
         </div>
       </div>
     </aside>

@@ -4,6 +4,18 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import Modal from "../components/Modal";
 
+const formatAmount = (amount, isCredit) =>
+  `${isCredit ? "+" : "-"}INR ${Number(amount || 0).toLocaleString("en-IN")}`;
+
+const iconLetter = (t) => {
+  const base =
+    t?.description ||
+    t?.category ||
+    (t?.type === "income" ? "Income" : "Expense") ||
+    "Transaction";
+  return String(base).trim().charAt(0).toUpperCase() || "T";
+};
+
 export default function TransactionsPage({ onLogout, user, onNavigate }) {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -53,17 +65,13 @@ export default function TransactionsPage({ onLogout, user, onNavigate }) {
       />
 
       <main className="main">
-        <Topbar
-          onAdd={() => setShowModal(true)}
-          onLogout={onLogout}
-          userName={user?.name}
-        />
+        <Topbar onAdd={() => setShowModal(true)} onLogout={onLogout} userName={user?.name} />
 
         <div className="card">
           <div className="card-header">
             <div className="card-title">All Transactions</div>
             <div className="card-actions">
-              <span className="card-badge">Auto-Categorized ?</span>
+              <span className="card-badge">Auto-Categorized</span>
               <button className="btn btn-ghost btn-sm" onClick={() => setShowModal(true)}>
                 + Add
               </button>
@@ -86,12 +94,12 @@ export default function TransactionsPage({ onLogout, user, onNavigate }) {
                         color: isCredit ? "var(--accent)" : "var(--danger)",
                       }}
                     >
-                      {isCredit ? "?" : "??"}
+                      {iconLetter(t)}
                     </div>
                     <div className="tx-info">
                       <div className="tx-name">{t.description || "Transaction"}</div>
                       <div className="tx-meta">
-                        {t.date || "Today"} ·{" "}
+                        {t.date || "Today"} -{" "}
                         <span
                           style={{
                             color: isCredit ? "var(--accent)" : "var(--danger)",
@@ -102,14 +110,14 @@ export default function TransactionsPage({ onLogout, user, onNavigate }) {
                       </div>
                     </div>
                     <div className={`tx-amount ${isCredit ? "credit" : "debit"}`}>
-                      {isCredit ? "+" : "-"}?{amount}
+                      {formatAmount(amount, isCredit)}
                     </div>
                     <button
                       className="tx-delete"
                       onClick={() => deleteTransaction(t)}
                       title="Delete transaction"
                     >
-                      ?
+                      X
                     </button>
                   </div>
                 );

@@ -4,14 +4,15 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 
 const formatMoney = (value) =>
-  `?${Number(value || 0).toLocaleString("en-IN")}`;
+  `INR ${Number(value || 0).toLocaleString("en-IN")}`;
 
 const clampNumber = (value) => {
   const n = Number(value);
   return Number.isFinite(n) ? n : 0;
 };
 
-const slabLabel = (from, to) => (to === Infinity ? `?${from}+` : `?${from} - ?${to}`);
+const slabLabel = (from, to) =>
+  to === Infinity ? `INR ${from}+` : `INR ${from} - INR ${to}`;
 
 const computeSlabs = (taxableIncome, slabs) => {
   const rows = [];

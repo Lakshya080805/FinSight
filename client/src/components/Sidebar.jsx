@@ -1,6 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Sidebar({ userName, onLogout, activeView, onNavigate }) {
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved === "light" ? "light" : "dark";
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const go = (view) => {
     if (onNavigate) onNavigate(view);
   };
@@ -67,6 +77,16 @@ export default function Sidebar({ userName, onLogout, activeView, onNavigate }) 
         <button className="nav-item" onClick={() => go("dashboard")}>
           <span className="icon">S</span> Settings
         </button>
+        <div className="theme-toggle">
+          <span>Day / Night</span>
+          <button
+            className={`toggle-track ${theme === "light" ? "light" : "dark"}`}
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            aria-label="Toggle day and night mode"
+          >
+            <span className="toggle-thumb"></span>
+          </button>
+        </div>
       </div>
 
       <div className="sidebar-footer">

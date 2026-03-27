@@ -5,7 +5,7 @@ import Topbar from "../components/Topbar";
 import Insights from "../components/Insights";
 
 const formatMoney = (value) =>
-  `?${Number(value || 0).toLocaleString("en-IN")}`;
+  `INR ${Number(value || 0).toLocaleString("en-IN")}`;
 
 export default function InsightsPage({ onLogout, user, onNavigate }) {
   const [data, setData] = useState(null);

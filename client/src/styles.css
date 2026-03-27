@@ -14,6 +14,20 @@
   --card-glow: rgba(0, 212, 170, 0.06);
 }
 
+:root[data-theme="light"] {
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --surface2: #f0f3f8;
+  --border: #e2e8f0;
+  --accent: #0ea5a0;
+  --accent2: #3b82f6;
+  --accent3: #f59e0b;
+  --danger: #ef4444;
+  --text: #0f172a;
+  --muted: #64748b;
+  --card-glow: rgba(14, 165, 160, 0.08);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -133,6 +147,40 @@ body::before {
   padding: 16px 24px;
   border-top: 1px solid var(--border);
 }
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  border-radius: 10px;
+  background: var(--surface2);
+  color: var(--muted);
+  font-size: 12px;
+}
+.toggle-track {
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+}
+.toggle-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s ease;
+}
+.toggle-track.light .toggle-thumb { transform: translateX(18px); }
 
 .profile-card {
   display: flex;

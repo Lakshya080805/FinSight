@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 
 const formatMoney = (value) =>
-  `?${Number(value || 0).toLocaleString("en-IN")}`;
+  `INR ${Number(value || 0).toLocaleString("en-IN")}`;
 
 export default function PLPage({ onLogout, user, onNavigate }) {
   const [data, setData] = useState(null);

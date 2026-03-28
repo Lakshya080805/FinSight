@@ -226,7 +226,7 @@ export default function TaxSummaryPage({ onLogout, user, onNavigate }) {
                     <div className="tax-value">
                       {calc.surchargeRate > 0
                         ? `${formatMoney(calc.surcharge)} (${(calc.surchargeRate * 100).toFixed(0)}%)`
-                        : "—"}
+                        : "ï¿½"}
                     </div>
                   </div>
                   <div className="tax-item">

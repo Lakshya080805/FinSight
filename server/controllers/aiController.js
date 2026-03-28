@@ -13,3 +13,4 @@ export const chatWithAI = async (req, res) => {
     res.status(500).json({ message: "AI service error" });
   }
 };
+ 

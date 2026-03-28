@@ -99,7 +99,7 @@ export default function InsightsPage({ onLogout, user, onNavigate }) {
                   <div className="summary-item">
                     <div className="summary-label">Top Category</div>
                     <div className="summary-value">
-                      {summary.topCat ? `${summary.topCat.name} (${formatMoney(summary.topCat.value)})` : "—"}
+                      {summary.topCat ? `${summary.topCat.name} (${formatMoney(summary.topCat.value)})` : "ï¿½"}
                     </div>
                   </div>
                 </div>

@@ -32,14 +32,7 @@ export default function KPIGrid({ data }) {
         <div className="kpi-icon">◫</div>
       </div>
 
-      <div className="kpi-card" style={{ "--card-accent": "var(--accent3)" }}>
-        <div className="kpi-label">Cash Runway</div>
-        <div className="kpi-value" style={{ color: "var(--accent3)" }}>
-          4.2 mo
-        </div>
-        <div className="kpi-change up">↑ 0.3 months better</div>
-        <div className="kpi-icon">◯</div>
-      </div>
+      
     </div>
   );
 }

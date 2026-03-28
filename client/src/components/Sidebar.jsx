@@ -5,22 +5,60 @@ export default function Sidebar({ userName, onLogout, activeView, onNavigate }) 
     const saved = localStorage.getItem("theme");
     return saved === "light" ? "light" : "dark";
   });
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.classList.add("sidebar-open");
+    } else {
+      document.body.classList.remove("sidebar-open");
+    }
+    return () => document.body.classList.remove("sidebar-open");
+  }, [mobileOpen]);
+
   const go = (view) => {
     if (onNavigate) onNavigate(view);
+    setMobileOpen(false);
   };
 
   return (
-    <aside className="sidebar">
-      <div className="logo">
-        <div className="logo-mark">FinSight</div>
-        <div className="logo-sub">AI Financial Assistant</div>
+    <div className="sidebar-shell">
+      <div className="sidebar-mobilebar">
+        <button
+          className={`hamburger ${mobileOpen ? "open" : ""}`}
+          type="button"
+          aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+          aria-controls="sidebar-menu"
+          onClick={() => setMobileOpen((v) => !v)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div className="sidebar-mobiletitle">FinSight</div>
       </div>
+
+      <button
+        className={`sidebar-backdrop ${mobileOpen ? "open" : ""}`}
+        type="button"
+        aria-label="Close menu"
+        onClick={() => setMobileOpen(false)}
+      ></button>
+
+      <aside
+        className={`sidebar ${mobileOpen ? "open" : ""}`}
+        id="sidebar-menu"
+      >
+        <div className="logo">
+          <div className="logo-mark">FinSight</div>
+          <div className="logo-sub">AI Financial Assistant</div>
+        </div>
 
       <div className="nav-section">
         <div className="nav-label">Overview</div>
@@ -89,22 +127,22 @@ export default function Sidebar({ userName, onLogout, activeView, onNavigate }) 
         </div>
       </div>
 
-      <div className="sidebar-footer">
-        <div className="profile-card">
-          <div className="business-badge">
-            <div className="biz-avatar">
-              {(userName || "A").slice(0, 1).toUpperCase()}
+        <div className="sidebar-footer">
+          <div className="profile-card">
+            <div className="business-badge">
+              <div className="biz-avatar">
+                {(userName || "A").slice(0, 1).toUpperCase()}
+              </div>
+              <div>
+                <div className="biz-name">{userName || "Arjun's Store"}</div>
+              </div>
             </div>
-            <div>
-              <div className="biz-name">{userName || "Arjun's Store"}</div>
-              <div className="biz-plan">Pro Plan *</div>
-            </div>
+            <button className="btn btn-ghost logout-btn" onClick={onLogout}>
+              Log out
+            </button>
           </div>
-          <button className="btn btn-ghost logout-btn" onClick={onLogout}>
-            Log out
-          </button>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </div>
   );
 }

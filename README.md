@@ -3,6 +3,7 @@
     <img src="https://img.shields.io/badge/Live%20Demo-Visit-brightgreen?style=for-the-badge" />
   </a>
 </p>
+
 # FinSight
 
 AI-powered financial assistant for modern businesses. FinSight unifies cash flow intelligence, automated insights, and reporting into a clean, fast dashboard that helps teams make confident decisions.

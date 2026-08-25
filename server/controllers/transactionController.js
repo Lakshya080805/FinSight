@@ -15,7 +15,7 @@ export const addTransaction = async (req, res) => {
     const { type, amount, category, description, date } = req.body;
 
     const normalizedAmount = Number(amount || 0);
-    const isAnomaly = await detectAnomaly(req.user.id, normalizedAmount);
+    const isAnomaly = await detectAnomaly(req.user.id, normalizedAmount, type);
 
     let finalCategory = normalizeCategory(category);
     if (!finalCategory || finalCategory === "Auto-Detect (AI)") {

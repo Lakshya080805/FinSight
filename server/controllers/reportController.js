@@ -83,8 +83,9 @@ export const exportReport = async (req, res) => {
       const catX = 60;
       const amtX = 420;
       doc.fontSize(9).fillColor("#444");
-      doc.text("Category", catX, doc.y, { width: 300 });
-      doc.text("Amount", amtX, doc.y, { width: 120, align: "right" });
+      const catHeaderY = doc.y;
+      doc.text("Category", catX, catHeaderY, { width: 300 });
+      doc.text("Amount", amtX, catHeaderY, { width: 120, align: "right" });
       doc.moveDown(0.3);
       doc.moveTo(40, doc.y).lineTo(555, doc.y).strokeColor("#eee").stroke();
       doc.moveDown(0.4);
